@@ -1,0 +1,26 @@
+import socket
+HOST = ''               #endereco de IP é o da maquina atual
+PORT = 12345
+socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+enderecoServidor = (HOST, PORT)
+socketServidor.bind(enderecoServidor)
+socketServidor.listen(1)
+while True :
+    socketCliente, enderecoCliente = socketServidor.accept()
+    print('Cliente conectado => ', enderecoCliente)
+    while True :
+        mensagem = socketCliente.recv(100)
+        if not mensagem : break
+        print(enderecoCliente, mensagem.decode())
+        if mensagem.decode() == 'A' :
+            teste = 'Escolheu opção A'
+            socketCliente.send(teste.encode())
+            #socketCliente.send(mensagem)
+        #elif mensagem.decode() == 'A':
+            #teste = 'Escolheu opção A'
+            #socketCliente.send(teste)
+        else:
+            mensagemEnviada = 'Não seu do que você esta falando'
+            socketCliente.send(mensagemEnviada.encode())
+    print('Conexao finalizada com o cliente ', enderecoCliente)
+    socketCliente.close()

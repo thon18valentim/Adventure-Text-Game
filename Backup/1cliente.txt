@@ -1,0 +1,15 @@
+import socket
+HOST = '192.168.15.46' 
+PORT = 12345
+socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+enderecoServidor = (HOST, PORT)
+socketCliente.connect(enderecoServidor)
+print('Digite X para sair')
+mensagem = input('Digite seu mensagem : ').encode()
+
+while mensagem.decode() != 'X' : #ou b'X'
+    socketCliente.send(mensagem)
+    mensagemRecebida = socketCliente.recv(100)
+    print('Mensagem Recebida = ', mensagemRecebida.decode())
+    mensagem = input('Digite sua mensagem: ').encode()
+socketCliente.close()

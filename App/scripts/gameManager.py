@@ -50,11 +50,13 @@ class Question():
 
     answerIdSelected = 0
 
-    def __init__(self, objectId, text, answer1, answer2):
+    def __init__(self, objectId, text, answer1, answer2, isAdeath = False, isBdeath = False):
         self.objectId = objectId
         self.text = text
         self.answer1 = answer1
         self.answer2 = answer2
+        self.isAdeath = isAdeath
+        self.isBdeath = isBdeath
 
     def getId(self):
         return self.objectId
@@ -70,3 +72,9 @@ class Question():
 
     def getText(self):
         return self.text
+
+    def getIsAdeath(self):
+        return self.isAdeath
+
+    def getIsBdeath(self):
+        return self.isBdeath

@@ -1,3 +1,4 @@
+from datetime import date
 
 class GameManager():
     """
@@ -18,6 +19,19 @@ class GameManager():
         Advance one game step
         """
         self.gameStep += 1
+
+    def saveAnswer(self, questionId, answer):
+        """
+        Saves user answers
+        """
+        try:
+            self.file = open("log.txt","a")
+            data_atual = date.today()
+            today_date = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
+            self.file.write("[ Pergunta " + questionId + " ] -> Resposta -> " + answer + " [ " +  today_date + " ]\n")
+        finally:
+            self.file.close()
+        
 
 class QuestionsBuild():
     """

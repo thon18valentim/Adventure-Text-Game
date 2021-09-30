@@ -3,8 +3,9 @@
 import socket
 
 # Connection configurations
-HOST = '192.168.15.46' 
 PORT = 12345
+HOST = socket.gethostbyname(socket.gethostname())
+print(HOST)
 
 while True:
     print("\t\t -- Welcome to Adventure Game launcher -- ")

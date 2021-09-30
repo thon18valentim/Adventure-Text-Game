@@ -36,6 +36,7 @@ while True :
             else:
                 print("Sobreviveu") 
 
+            gameManager.saveAnswer("1",escolha.decode())
             gameManager.advanceStep()
 
         elif gameManager.getStep() == 1:
@@ -53,6 +54,7 @@ while True :
             else:
                 print("Sobreviveu") 
 
+            gameManager.saveAnswer("2",escolha.decode())
             gameManager.advanceStep()
 
     print('Conexao finalizada com o cliente ', enderecoCliente)

@@ -30,9 +30,9 @@ while True :
         escolha = int(escolha)
  
         # Capturing question
-        question = questionManager.getQuestion(gameManager.getStep())
+        #question = questionManager.getQuestion(gameManager.getStep())
         # Advancing for the next question
-        gameManager.advanceStep(question.getNextQuestion(escolha))
+        gameManager.advanceStep(questionManager.getNextQuestion(gameManager.getStep(),escolha))
         
         # Starting game
         # if gameManager.getStep() == 0:

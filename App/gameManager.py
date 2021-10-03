@@ -105,6 +105,7 @@ class QuestionsBuild():
                                        "(a) Se jogar na água."))
 
     def getQuestionText(self,id):
+        print(type(id))
         for question in self.questions:
             if question.getId() == id:
                 return question.getText()
@@ -120,6 +121,17 @@ class QuestionsBuild():
         for question in self.questions:
             if question.getId() == id:
                 return question
+
+    def getNextQuestion(self,id,answer):
+        for question in self.questions:
+            if question.getId() == id:
+                if(answer == 1):
+                    return question.questionPosition(0)
+                else:
+                    try:
+                        return question.questionPosition(1)
+                    except:
+                        return "Opção inválida"
 
 class Question():
     """
@@ -161,12 +173,6 @@ class Question():
     def getIsBdeath(self):
         return self.isBdeath
 
-    def getNextQuestion(self,answer):
-        if(answer == 1):
-            return self.nextQuestions[0]
-        else:
-            try:
-                return self.nextQuestions[1]
-            except:
-                return "Opção inválida"
+    def questionPosition(self, pos):
+        return self.nextQuestions.index(pos)
             

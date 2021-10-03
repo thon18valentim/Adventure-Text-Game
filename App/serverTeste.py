@@ -1,19 +1,18 @@
 # USE THIS FILE TO BUILD BACK END APPLICATION
 
-from scripts.gameManager import QuestionsBuild
-from scripts.gameManager import GameManager
+from gameManager import QuestionsBuild
+from gameManager import GameManager
 import socket
 
 gameManager = GameManager()
 questionManager = QuestionsBuild()
 
 HOST = ''               #endereco de IP é o da maquina atual
-PORT = 12345
+PORT = 54321
 socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 enderecoServidor = (HOST, PORT)
 socketServidor.bind(enderecoServidor)
 socketServidor.listen(1)
-i = 0
 
 while True :
     socketCliente, enderecoCliente = socketServidor.accept()
@@ -57,5 +56,22 @@ while True :
             gameManager.saveAnswer("2",escolha.decode())
             gameManager.advanceStep()
 
+        elif gameManager.gameStep == 2:
+            pergunta = questionManager.getQuestionText(3) + "\n" + questionManager.getQuestionAnswers(3)
+            socketCliente.send(pergunta.encode())
+
+            escolha = socketCliente.recv(100)
+
+            if (escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == True):
+                print("Você Morreu")
+            elif (escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == False):
+                print("Sobreviveu")
+            elif (escolha.decode() == "2" and questionManager.questions[1].getIsBdeath() == True):
+                print("Você Morreu")
+            else:
+                print("Sobreviveu")
+
+            gameManager.advanceStep()
+        
     print('Conexao finalizada com o cliente ', enderecoCliente)
     socketCliente.close()

@@ -1,0 +1,6 @@
+[ Pergunta 1 ] -> Resposta -> a [ 2/10/2021 ]
+[ Pergunta 2 ] -> Resposta -> a [ 2/10/2021 ]
+[ Pergunta 1 ] -> Resposta -> 1 [ 2/10/2021 ]
+[ Pergunta 2 ] -> Resposta -> 1 [ 2/10/2021 ]
+[ Pergunta 1 ] -> Resposta -> 1 [ 2/10/2021 ]
+[ Pergunta 2 ] -> Resposta -> 1 [ 2/10/2021 ]

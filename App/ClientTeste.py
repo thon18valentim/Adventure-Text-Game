@@ -3,40 +3,58 @@
 import socket
 
 # Connection configurations
-PORT = 12345
+PORT = 54321
 HOST = socket.gethostbyname(socket.gethostname())
 print(HOST)
 
-while True:
-    print("\t\t -- Welcome to Adventure Game launcher -- ")
-    print("\n(1) | Start |")
-    print("\n(2) | Configurations |")
-    resp = int(input("\nA.: "))
+def limpar():
+    print("\n" * 100)
 
+while True:
+    limpar()
+    print("\t\t\t\t -----------------------------------------")
+    print("\t\t\t\t | Bem-Vindo ao Adventure Game launcher | ")
+    print("\t\t\t\t -----------------------------------------")
+    print("\n    ----------------")
+    print("(1) | Começar      |")
+    print("    ----------------")
+    print("    ----------------")
+    print("(2) | Configuração |")
+    print("    ----------------")
+    resp = int(input("\nEntrada ----> "))
+    limpar()
     if resp == 1:
         break
     else:
-        print("\n\n\t\t -- Configurations -- ")
-        HOST = input("Ipv4: ")
-        PORT = int(input("Port: "))
+        print("\t\t ----------------")
+        print("\t\t | Configuração | ")
+        print("\t\t ----------------")
+        HOST = input("Ipv4 ----> ")
+        PORT = int(input("Porta ----> "))
+        limpar()
 
 # Building connection
 socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 enderecoServidor = (HOST, PORT)
 socketCliente.connect(enderecoServidor)
 
-#print('Digite X para sair')
-#mensagem = input('Digite seu mensagem : ').encode()
+print("\t\t ---------------------------")
+print("\t\t |    Jogo de aventura     | ")
+print("\t\t ---------------------------")
+print("\t\t ---------------------------")
+print("\t\t |  Você pode sobreviver?  |")
+print("\t\t ---------------------------\n\n")
 
-print("\n\n\t\t -- Adventure Game -- ")
-print("\n\t\t - Can you survive?")
-escolha = int(input("(1) | Start Run |\n(0) | Exit Game |\n\nA.: "))
+escolha = int(input("(1) | Start Run |\n(0) | Exit Game |\n\nEntrada ----> "))
+limpar()
 
 while escolha != 0:
     perguntaRecebida = socketCliente.recv(1024)
 
     print(perguntaRecebida.decode())
-    resposta = input("\n\nA.: ").encode()
+    resposta = input("\n\nEntrada ----> ").encode()
+    print("\n\n")
     socketCliente.send(resposta)
+    limpar()
 
 socketCliente.close()

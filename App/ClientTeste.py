@@ -39,7 +39,7 @@ enderecoServidor = (HOST, PORT)
 socketCliente.connect(enderecoServidor)
 
 print("\t\t ---------------------------")
-print("\t\t |    Jogo de aventura     | ")
+print("\t\t |    Adventure Game       | ")
 print("\t\t ---------------------------")
 print("\t\t ---------------------------")
 print("\t\t |  Você pode sobreviver?  |")

@@ -18,60 +18,32 @@ while True :
     socketCliente, enderecoCliente = socketServidor.accept()
     print('Client connected => ', enderecoCliente)
     while True :
+
+        pergunta = questionManager.getQuestionText(gameManager.getStep()) + "\n" + questionManager.getQuestionAnswers(gameManager.getStep())
+        socketCliente.send(pergunta.encode())
+
+        escolha = socketCliente.recv(100)
+
+        # Save answer in log.txt
+        gameManager.saveAnswer(gameManager.getStep(),escolha.decode())
+
+        escolha = int(escolha)
+ 
+        # Capturing question
+        question = questionManager.getQuestion(gameManager.getStep())
+        # Advancing for the next question
+        gameManager.advanceStep(question.getNextQuestion(escolha))
         
         # Starting game
-        if gameManager.getStep() == 0:
-            pergunta = questionManager.getQuestionText(1) + "\n" + questionManager.getQuestionAnswers(1)
-            socketCliente.send(pergunta.encode())
+        # if gameManager.getStep() == 0:
+        #     pergunta = questionManager.getQuestionText(1) + "\n" + questionManager.getQuestionAnswers(1)
+        #     socketCliente.send(pergunta.encode())
 
-            escolha = socketCliente.recv(100)
+        #     escolha = socketCliente.recv(100)
 
-            if(escolha.decode() == "1" and questionManager.questions[0].getIsAdeath() == True):
-                print("Você Morreu")
-            elif(escolha.decode() == "1" and questionManager.questions[0].getIsAdeath() == False):
-                print("Sobreviveu")
-            elif(escolha.decode() == "2" and questionManager.questions[0].getIsBdeath() == True):
-                print("Você Morreu")
-            else:
-                print("Sobreviveu") 
-
-            gameManager.saveAnswer("1",escolha.decode())
-            gameManager.advanceStep()
-
-        elif gameManager.getStep() == 1:
-            pergunta = questionManager.getQuestionText(2) + "\n" + questionManager.getQuestionAnswers(2)
-            socketCliente.send(pergunta.encode())
-
-            escolha = socketCliente.recv(100)
-
-            if(escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == True):
-                print("Você Morreu")
-            elif(escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == False):
-                print("Sobreviveu")
-            elif(escolha.decode() == "2" and questionManager.questions[1].getIsBdeath() == True):
-                print("Você Morreu")
-            else:
-                print("Sobreviveu") 
-
-            gameManager.saveAnswer("2",escolha.decode())
-            gameManager.advanceStep()
-
-        elif gameManager.gameStep == 2:
-            pergunta = questionManager.getQuestionText(3) + "\n" + questionManager.getQuestionAnswers(3)
-            socketCliente.send(pergunta.encode())
-
-            escolha = socketCliente.recv(100)
-
-            if (escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == True):
-                print("Você Morreu")
-            elif (escolha.decode() == "1" and questionManager.questions[1].getIsAdeath() == False):
-                print("Sobreviveu")
-            elif (escolha.decode() == "2" and questionManager.questions[1].getIsBdeath() == True):
-                print("Você Morreu")
-            else:
-                print("Sobreviveu")
-
-            gameManager.advanceStep()
+        #     gameManager.saveAnswer("1",escolha.decode())
+        #     gameManager.advanceStep()
+        #     socketCliente.send(" ".encode())
         
     print('Conexao finalizada com o cliente ', enderecoCliente)
     socketCliente.close()

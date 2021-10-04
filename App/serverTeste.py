@@ -8,7 +8,7 @@ gameManager = GameManager()
 questionManager = QuestionsBuild()
 
 HOST = ''               #endereco de IP é o da maquina atual
-PORT = 23546
+PORT = 34516
 socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 enderecoServidor = (HOST, PORT)
 socketServidor.bind(enderecoServidor)

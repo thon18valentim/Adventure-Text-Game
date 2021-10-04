@@ -1,9 +1,12 @@
 # USE THIS FILE TO BUILD FRONT END APPLICATION
 
 import socket
+from gameManager import GameManager
+
+gameManager = GameManager()
 
 # Connection configurations
-PORT = 23546
+PORT = 34516
 HOST = socket.gethostbyname(socket.gethostname())
 print(HOST)
 
@@ -15,15 +18,19 @@ while True:
     print("\t\t\t\t -----------------------------------------")
     print("\t\t\t\t | Bem-Vindo ao Adventure Game launcher | ")
     print("\t\t\t\t -----------------------------------------")
-    print("\n    ----------------")
-    print("(1) | Começar      |")
-    print("    ----------------")
-    print("    ----------------")
-    print("(2) | Configuração |")
-    print("    ----------------")
+    print("\n      ----------------")
+    print("|1| - | Começar      |")
+    print("      ----------------")
+    print("      ----------------")
+    print("|0| - | Configuração |")
+    print("      ----------------")
     resp = int(input("\nEntrada ----> "))
     limpar()
     if resp == 1:
+        name = input("Entre com seu nome: ")
+        file = open("log.txt", "a")
+        file.write("Respostas do jogador -> " + name + "\n")
+        file.close()
         break
     else:
         print("\t\t ----------------")
@@ -38,14 +45,21 @@ socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 enderecoServidor = (HOST, PORT)
 socketCliente.connect(enderecoServidor)
 
-print("\t\t ---------------------------")
+print("\n\n\t\t ---------------------------")
 print("\t\t |    Adventure Game       | ")
 print("\t\t ---------------------------")
 print("\t\t ---------------------------")
 print("\t\t |  Você pode sobreviver?  |")
 print("\t\t ---------------------------\n\n")
 
-escolha = int(input("(1) | Start Run |\n(0) | Exit Game |\n\nEntrada ----> "))
+print("\n      ----------------")
+print("|1| - | Começar      |")
+print("      ----------------")
+print("      ----------------")
+print("|0| - | Configuração |")
+print("      ----------------")
+escolha = int(input("\nEntrada ----> "))
+
 limpar()
 
 while True:

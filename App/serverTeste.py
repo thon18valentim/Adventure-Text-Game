@@ -8,7 +8,7 @@ gameManager = GameManager()
 questionManager = QuestionsBuild()
 
 HOST = ''               #endereco de IP é o da maquina atual
-PORT = 54321
+PORT = 23546
 socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 enderecoServidor = (HOST, PORT)
 socketServidor.bind(enderecoServidor)
@@ -22,9 +22,16 @@ while True :
     while True :
         pergunta = questionManager.getQuestion(step)
         clientText = pergunta.text + "\n" + pergunta.getAnswerText()
+
         socketCliente.send(clientText.encode())
 
         escolha = socketCliente.recv(100)
+
+        if pergunta.getId() == 66 or pergunta.getId() == 67:
+            break
+
+        if pergunta.getId() == 100:
+            break
 
         # Save answer in log.txt
         gameManager.saveAnswer(step,escolha.decode())
@@ -37,8 +44,5 @@ while True :
         gameManager.advanceStep(nextQuestionId)
         step = gameManager.getStep()
 
-        if step == 0:
-            break
-        
     print('Conexao finalizada com o cliente ', enderecoCliente)
     socketCliente.close()

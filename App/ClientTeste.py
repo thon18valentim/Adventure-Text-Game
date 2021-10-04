@@ -3,7 +3,7 @@
 import socket
 
 # Connection configurations
-PORT = 54321
+PORT = 23546
 HOST = socket.gethostbyname(socket.gethostname())
 print(HOST)
 
@@ -48,11 +48,14 @@ print("\t\t ---------------------------\n\n")
 escolha = int(input("(1) | Start Run |\n(0) | Exit Game |\n\nEntrada ----> "))
 limpar()
 
-while escolha != 0:
+while True:
     perguntaRecebida = socketCliente.recv(1024)
 
     print(perguntaRecebida.decode())
     resposta = input("\n\nEntrada ----> ").encode()
+    if resposta.decode() == '0':
+        socketCliente.close()
+        break
     print("\n\n")
     socketCliente.send(resposta)
     limpar()

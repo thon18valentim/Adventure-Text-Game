@@ -28,7 +28,7 @@ class GameManager():
             self.file = open("log.txt","a")
             data_atual = date.today()
             today_date = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
-            self.file.write("[ Pergunta " + str(questionId) + " ] -> Resposta -> " + str(answer) + " [ " +  today_date + " ]\n")
+            self.file.write("[ Pergunta " + str(questionId) + " ] -> Resposta -> " + str(answer) + "  [ " +  today_date + " ]\n")
         finally:
             self.file.close()
         
@@ -128,7 +128,8 @@ class QuestionsBuild():
         self.questions[19].addNextQuestions(15)
         self.questions.append(Question(15,"O sol está alto. Suas roupas estão encharcadas de suor. Você está com sede. Você\nestá caminhando há horas.\n\nUm pássaro gorjeia à sua direita. Até que você finalmente o encontra. Um oásis, o\nOlho d' Cobra. Você tenta correr em direção a ela, mas cai. Se arrastando pela areia,\nvocê consegue sentir os grãos queimando sua mão você alcança, você se inclina\nsobre a água pronto para matar sua sede, mas algo o impede. Seu reflexo na água,\nvocê o viu antes, ele tentou te matar muitas vezes até que você finalmente alcançou a\nvitória. Mas como isso é possível?\n",
                                        "(a) Se jogar na água."))
-        self.questions[20].addNextQuestions(-1)
+        self.questions[20].addNextQuestions(100)
+        self.questions.append(Question(100,"Parabens!!! ", "0 Sair"))
 
     def getQuestionText(self,id):
         print(type(id))

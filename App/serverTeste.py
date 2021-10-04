@@ -14,25 +14,33 @@ enderecoServidor = (HOST, PORT)
 socketServidor.bind(enderecoServidor)
 socketServidor.listen(1)
 
+step = 1
+
 while True :
     socketCliente, enderecoCliente = socketServidor.accept()
     print('Client connected => ', enderecoCliente)
     while True :
 
-        pergunta = questionManager.getQuestionText(gameManager.getStep()) + "\n" + questionManager.getQuestionAnswers(gameManager.getStep())
+        pergunta = questionManager.getQuestionText(step) + "\n" + questionManager.getQuestionAnswers(step)
         socketCliente.send(pergunta.encode())
 
         escolha = socketCliente.recv(100)
 
         # Save answer in log.txt
-        gameManager.saveAnswer(gameManager.getStep(),escolha.decode())
+        gameManager.saveAnswer(step,escolha.decode())
 
-        escolha = int(escolha)
+        esc = int(escolha.decode())
+        print("Escolha -> %d" % esc)
+        print("Step -> %d" % step)
+
+        nextQuestionId = questionManager.getNextQuestion(step,esc)
+        print("Next Question Id -> %d" % nextQuestionId)
  
         # Capturing question
         #question = questionManager.getQuestion(gameManager.getStep())
         # Advancing for the next question
-        gameManager.advanceStep(questionManager.getNextQuestion(gameManager.getStep(),escolha))
+        gameManager.advanceStep(nextQuestionId)
+        step = gameManager.getStep()
         
         # Starting game
         # if gameManager.getStep() == 0:

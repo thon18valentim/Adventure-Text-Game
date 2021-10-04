@@ -128,10 +128,8 @@ class QuestionsBuild():
                 if(answer == 1):
                     return question.questionPosition(0)
                 else:
-                    try:
-                        return question.questionPosition(1)
-                    except:
-                        return "Opção inválida"
+                    return question.questionPosition(1)
+                   
 
 class Question():
     """
@@ -149,8 +147,8 @@ class Question():
         self.answer2 = answer2
         self.isAdeath = isAdeath
         self.isBdeath = isBdeath
-        for q in nextIds:
-            self.nextQuestions.append(nextIds)
+        for ids in nextIds:
+            self.nextQuestions.append(ids)
 
     def getId(self):
         return self.objectId
@@ -174,5 +172,5 @@ class Question():
         return self.isBdeath
 
     def questionPosition(self, pos):
-        return self.nextQuestions.index(pos)
+        return self.nextQuestions[pos]
             

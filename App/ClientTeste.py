@@ -1,9 +1,6 @@
 # USE THIS FILE TO BUILD FRONT END APPLICATION
 
 import socket
-from gameManager import GameManager
-
-gameManager = GameManager()
 
 # Connection configurations
 PORT = 34516
@@ -56,7 +53,7 @@ print("\n      ----------------")
 print("|1| - | Começar      |")
 print("      ----------------")
 print("      ----------------")
-print("|0| - | Configuração |")
+print("|0| - | Sair         |")
 print("      ----------------")
 escolha = int(input("\nEntrada ----> "))
 

@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter.constants import LEFT
 
-
 class Janela2:
     def __init__(self, master, root):
         
@@ -54,7 +53,7 @@ class Janela2:
         self.tbPorta["width"] = 30
         self.tbPorta.pack(side=LEFT)
 
-        self.btnAutenticar = tk.Button(self.container4, command=self.voltarmenu) #verifica o conteudo digitado
+        self.btnAutenticar = tk.Button(self.container4) #verifica o conteudo digitado
         self.btnAutenticar["text"] = "Atualizar"
         self.btnAutenticar["font"] = self.fontePadrao
         self.btnAutenticar["width"] = 12
@@ -65,21 +64,25 @@ class Janela2:
         self.lbAutenticar["text"] = ""
         self.lbAutenticar["font"] = self.fontePadrao
         self.lbAutenticar.pack()
+        # self.lbAutenticar = tk.Button(self.container4, command=self.voltarmenu)
+        # self.btnAutenticar["text"] = "Atualizar"
         
-        self.btnexit = tk.Button(self.container5, command=self.voltarmenu) #volta ao menu
-        self.btnexit["text"] = "Começar"
-        self.btnexit["font"] = self.fontePadrao
-        self.btnexit["width"] = 12
-        self.btnexit.pack()
+        # self.btnexit = tk.Button(self.container5, command=self.voltarmenu) #volta ao menu
+        # self.btnexit["text"] = "Começar"
+        # self.btnexit["font"] = self.fontePadrao
+        # self.btnexit["width"] = 12
+        # self.btnexit.pack()
         
     def verificar(self):
         ipv4 = self.tbIpv4.get()
         porta = self.tbPorta.get()
         
-        if ipv4 == "" and porta == "" :
+        if ipv4 == "" or porta == "" :
             self.lbAutenticar["text"] = "Não autenticado"
         else :
-            self.lbAutenticar["text"] = "Autenticado"   
+            self.nova.withdraw()
+            self.inicio = tk.Toplevel(self.nova)
+            Janela3(self.inicio, self.nova)
 
     def voltar(self):
         self.origem.deiconify()

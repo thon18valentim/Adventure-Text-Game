@@ -1,6 +1,8 @@
 # USE THIS FILE TO BUILD FRONT END APPLICATION
 
 import socket
+import tkinter as tk
+from tkinter.constants import LEFT
 
 # Connection configurations
 PORT = 34516
@@ -58,6 +60,7 @@ print("      ----------------")
 escolha = int(input("\nEntrada ----> "))
 
 limpar()
+
 
 while True:
     perguntaRecebida = socketCliente.recv(1024)

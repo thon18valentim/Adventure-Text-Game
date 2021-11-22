@@ -2,6 +2,7 @@
 
 import socket
 import tkinter as tk
+from gui import Tela
 from tkinter.constants import LEFT
 
 # Connection configurations
@@ -9,11 +10,11 @@ PORT = 34516
 HOST = socket.gethostbyname(socket.gethostname())
 print(HOST)
 
-def limpar():
-    print("\n" * 100)
-
 while True:
-    limpar()
+    janelaRaiz = tk.Tk()
+    janelaRaiz.geometry("600x400")
+    Tela(janelaRaiz)
+    janelaRaiz.mainloop()
     print("\t\t\t\t -----------------------------------------")
     print("\t\t\t\t | Bem-Vindo ao Adventure Game launcher | ")
     print("\t\t\t\t -----------------------------------------")
@@ -24,7 +25,6 @@ while True:
     print("|0| - | Configuração |")
     print("      ----------------")
     resp = int(input("\nEntrada ----> "))
-    limpar()
     if resp == 1:
         name = input("Entre com seu nome: ")
         file = open("log.txt", "a")
@@ -37,7 +37,6 @@ while True:
         print("\t\t ----------------")
         HOST = input("Ipv4 ----> ")
         PORT = int(input("Porta ----> "))
-        limpar()
 
 # Building connection
 socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -59,8 +58,6 @@ print("|0| - | Sair         |")
 print("      ----------------")
 escolha = int(input("\nEntrada ----> "))
 
-limpar()
-
 
 while True:
     perguntaRecebida = socketCliente.recv(1024)
@@ -72,6 +69,5 @@ while True:
         break
     print("\n\n")
     socketCliente.send(resposta)
-    limpar()
 
 socketCliente.close()

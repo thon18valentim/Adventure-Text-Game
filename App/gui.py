@@ -74,15 +74,22 @@ class Janela2:
         # self.btnexit.pack()
         
     def verificar(self):
-        ipv4 = self.tbIpv4.get()
-        porta = self.tbPorta.get()
+        self.ipv4 = self.tbIpv4.get()
+        self.porta = self.tbPorta.get()
         
-        if ipv4 == "" or porta == "" :
+        if self.ipv4 == "" or self.porta == "" :
             self.lbAutenticar["text"] = "Não autenticado"
         else :
             self.nova.withdraw()
             self.inicio = tk.Toplevel(self.nova)
+            self.inicio.geometry("600x400")
             Janela3(self.inicio, self.nova)
+
+    def get_ipv4(self):
+        return self.ipv4
+
+    def get_porta(self):
+        return self.porta
 
     def voltar(self):
         self.origem.deiconify()
@@ -91,6 +98,7 @@ class Janela2:
     def voltarmenu(self):
         self.nova.withdraw()
         self.inicio = tk.Toplevel(self.nova)
+        self.inicio.geometry("600x400")
         Janela3(self.inicio, self.nova)
         
 class Janela3:
@@ -201,13 +209,16 @@ class Tela:
     def abrir(self):
         self.nossaTela.withdraw()
         self.novaTela = tk.Toplevel(self.nossaTela)
+        self.novaTela.geometry("600x400")
         Janela2(self.novaTela, self.nossaTela)
     
     def playing(self):
         self.nossaTela.withdraw()
         self.telaplay = tk.Toplevel(self.nossaTela)
+        self.telaplay.geometry("600x400")
         Janela3(self.telaplay, self.nossaTela)
     
-janelaRaiz = tk.Tk()
-Tela(janelaRaiz)
-janelaRaiz.mainloop()
+# janelaRaiz = tk.Tk()
+# janelaRaiz.geometry("600x400")
+# Tela(janelaRaiz)
+# janelaRaiz.mainloop()

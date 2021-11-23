@@ -2,7 +2,6 @@
 
 import socket
 import tkinter as tk
-from gui import Tela
 from tkinter.constants import LEFT
 
 # Connection configurations
@@ -10,11 +9,37 @@ PORT = 34516
 HOST = socket.gethostbyname(socket.gethostname())
 print(HOST)
 
+main_screen = tk.Tk()
+main_screen.title("Adventure Game")
+main_screen.resizable(False, False)
+#main_screen.iconbitmap("img/sunIcon.ico")
+
+#Window Resolution
+window_width = 600
+window_heigh = 400
+
+# Screen Resolution
+screen_width = main_screen.winfo_screenwidth()
+screen_heigh = main_screen.winfo_screenheight()
+
+# Window position
+posx = screen_width/2 - window_width/2
+posy = screen_heigh/2 - window_heigh/2
+
+main_screen.geometry("%dx%d+%d+%d" % (window_width, window_heigh, posx, posy))
+
+menu_btn = tk.Button(main_screen, text="Play", command=lambda: print("Jogar"))
+menu_btn.pack()
+
+menu_btn = tk.Button(main_screen, text="Settings", command=lambda: print("Configurar"))
+menu_btn.pack()
+
+menu_btn = tk.Button(main_screen, text="Exit", command=lambda: print("Fechar aplicação"))
+menu_btn.pack()
+
+main_screen.mainloop()
+
 while True:
-    janelaRaiz = tk.Tk()
-    janelaRaiz.geometry("600x400")
-    Tela(janelaRaiz)
-    janelaRaiz.mainloop()
     print("\t\t\t\t -----------------------------------------")
     print("\t\t\t\t | Bem-Vindo ao Adventure Game launcher | ")
     print("\t\t\t\t -----------------------------------------")

@@ -3,6 +3,7 @@
 import socket
 import tkinter as tk
 from tkinter.constants import LEFT
+from tkinter import *
 
 # Connection configurations
 PORT = 34516
@@ -13,6 +14,14 @@ main_screen = tk.Tk()
 main_screen.title("Adventure Game")
 main_screen.resizable(False, False)
 #main_screen.iconbitmap("img/sunIcon.ico")
+
+main_screen.iconbitmap(r"App\img\sunIcon.ico")
+
+c = Canvas(main_screen, bg = "gray16", height=400, width=600)
+filename = PhotoImage(file=r"App\img\Background.png")
+background_label = Label(main_screen,image=filename)
+background_label.place(x=0,y=0, relwidth=1, relheight=1)
+c.pack()
 
 #Window Resolution
 window_width = 600

@@ -20,10 +20,12 @@ def apply_settings(frame):
     HOST = configureFrame_IpField.get("1.0", "end")
     frame.destroy()
 
+def advance_gameplay(title):
+    title.destroy()
+
 main_screen = tk.Tk()
 main_screen.title("Adventure Game")
 main_screen.resizable(False, False)
-#main_screen.iconbitmap("img/sunIcon.ico")
 
 main_screen.iconbitmap(r"App\img\sunIcon.ico")
 
@@ -47,9 +49,8 @@ def show_frame(frame):
 
 configureFrame = tk.Frame(main_screen, bg=rgb_hack((207, 87, 61)))
 insertNameFrame = tk.Frame(main_screen)
-background_label.place(x=0,y=0, relwidth=1, relheight=1)
 
-gameplayFrame = tk.Frame(main_screen)
+background_label.place(x=0,y=0, relwidth=1, relheight=1)
 
 # Window position
 posx = screen_width/2 - window_width/2
@@ -60,7 +61,7 @@ main_screen.geometry("%dx%d+%d+%d" % (window_width, window_heigh, posx, posy))
 menu_title = tk.Label(main_screen, text="Adventure Game", font=("Arial",15))
 menu_title.pack(pady=25)
 
-menu_btn = tk.Button(main_screen, text="Play", command=lambda: show_frame(insertNameFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))
+menu_btn = tk.Button(main_screen, text="Play", command=lambda: advance_gameplay(menu_title), width=40, height=2, bg=rgb_hack((207, 87, 61)))
 menu_btn.pack(pady=5)
 
 menu_btn = tk.Button(main_screen, text="Settings", command=lambda: show_frame(configureFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))

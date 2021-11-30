@@ -8,6 +8,7 @@ from tkinter import *
 # Connection configurations
 PORT = 34516
 HOST = socket.gethostbyname(socket.gethostname())
+socketCliente = None
 print(HOST)
 
 def rgb_hack(rgb):
@@ -20,8 +21,17 @@ def apply_settings(frame):
     HOST = configureFrame_IpField.get("1.0", "end")
     frame.destroy()
 
-def advance_gameplay(title):
+def apply_name(frame):
+    file = open("log.txt", "a")
+    file.write("Respostas do jogador -> %s" % insertNameFrame_Field.get('1.0', 'end'))
+    file.close()
+    frame.destroy()
+
+def advance_gameplay(title, button1, button2, button3):
     title.destroy()
+    button1.destroy()
+    button2.destroy()
+    button3.destroy()
 
 main_screen = tk.Tk()
 main_screen.title("Adventure Game")
@@ -61,14 +71,14 @@ main_screen.geometry("%dx%d+%d+%d" % (window_width, window_heigh, posx, posy))
 menu_title = tk.Label(main_screen, text="Adventure Game", font=("Arial",15))
 menu_title.pack(pady=25)
 
-menu_btn = tk.Button(main_screen, text="Play", command=lambda: advance_gameplay(menu_title), width=40, height=2, bg=rgb_hack((207, 87, 61)))
-menu_btn.pack(pady=5)
+menu_btn1 = tk.Button(main_screen, text="Play", command=lambda: show_frame(insertNameFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))
+menu_btn1.pack(pady=5)
 
-menu_btn = tk.Button(main_screen, text="Settings", command=lambda: show_frame(configureFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))
-menu_btn.pack(pady=5)
+menu_btn2 = tk.Button(main_screen, text="Settings", command=lambda: show_frame(configureFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))
+menu_btn2.pack(pady=5)
 
-menu_btn = tk.Button(main_screen, text="Exit", command= main_screen.destroy, width=35, height=2, bg='red')
-menu_btn.pack(pady=5)
+menu_btn3 = tk.Button(main_screen, text="Exit", command= main_screen.destroy, width=35, height=2, bg='red')
+menu_btn3.pack(pady=5)
 
 # for frame in (configureFrame, insertNameFrame, gameplayFrame):
 #     frame.grid(row=0, column=0,sticky='nsew')
@@ -90,62 +100,79 @@ configureFrame_PortField.pack()
 configureFrame_applyBtn = tk.Button(configureFrame, text="Apply", command=lambda: apply_settings(configureFrame))
 configureFrame_applyBtn.pack(pady=3)
 
-main_screen.mainloop()
+############### Insert Frame Code ###############
+def build_connection():
+    global HOST, PORT, socketCliente
+    # Building connection
+    socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    enderecoServidor = (HOST, PORT)
+    socketCliente.connect(enderecoServidor)
+    print("Conectado")
 
-while True:
-    print("\t\t\t\t -----------------------------------------")
-    print("\t\t\t\t | Bem-Vindo ao Adventure Game launcher | ")
-    print("\t\t\t\t -----------------------------------------")
-    print("\n      ----------------")
-    print("|1| - | Começar      |")
-    print("      ----------------")
-    print("      ----------------")
-    print("|0| - | Configuração |")
-    print("      ----------------")
-    resp = int(input("\nEntrada ----> "))
-    if resp == 1:
-        name = input("Entre com seu nome: ")
-        file = open("log.txt", "a")
-        file.write("Respostas do jogador -> " + name + "\n")
-        file.close()
-        break
+insertNameFrame = tk.Frame(main_screen, bg=rgb_hack((207, 87, 61)))
+insertNameFrame_title= tk.Label(insertNameFrame, text="Insert Name", bg=rgb_hack((207, 87, 61)))
+insertNameFrame_title.pack()
+insertNameFrame_Field = tk.Text(insertNameFrame, height=2, width=30)
+insertNameFrame_Field.pack()
+insertNameFrame_applyBtn = tk.Button(insertNameFrame, text="Apply", command=lambda: [apply_name(insertNameFrame), advance_gameplay(menu_title, menu_btn1, menu_btn2, menu_btn3), build_connection(), gameplay()])
+insertNameFrame_applyBtn.pack(pady=3)
+
+#--------------------------------------------#
+## Gameplay ##
+question_text = tk.Label(main_screen, text="Question", bg=rgb_hack((207, 87, 61)))
+question_btn1 = tk.Button(main_screen, text="Option1", bg=rgb_hack((207, 87, 61)))
+question_btn2 = tk.Button(main_screen, text="Option2", bg=rgb_hack((207, 87, 61)))
+question_btn3 = tk.Button(main_screen, text="Sair do Jogo", bg=rgb_hack((207, 87, 61)))
+
+def show_new_question(text, button1, button2):
+    text.pack()
+    button1.pack()
+    button2.pack()
+
+def close_socket(screen):
+    global socketCliente
+    socketCliente.close()
+    screen.destroy()
+
+def send_message(id):
+    global socketCliente
+
+    if id == 0:
+        socketCliente.send("1".encode())
     else:
-        print("\t\t ----------------")
-        print("\t\t | Configuração | ")
-        print("\t\t ----------------")
-        HOST = input("Ipv4 ----> ")
-        PORT = int(input("Porta ----> "))
+        socketCliente.send("2".encode())
+    
+    gameplay()
 
-# Building connection
-socketCliente = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-enderecoServidor = (HOST, PORT)
-socketCliente.connect(enderecoServidor)
+def gameplay():
 
-print("\n\n\t\t ---------------------------")
-print("\t\t |    Adventure Game       | ")
-print("\t\t ---------------------------")
-print("\t\t ---------------------------")
-print("\t\t |  Você pode sobreviver?  |")
-print("\t\t ---------------------------\n\n")
+    global question_text
+    global question_btn1
+    global question_btn2
+    global question_btn3
 
-print("\n      ----------------")
-print("|1| - | Começar      |")
-print("      ----------------")
-print("      ----------------")
-print("|0| - | Sair         |")
-print("      ----------------")
-escolha = int(input("\nEntrada ----> "))
+    global main_screen
 
+    question_text.pack()
+    question_btn1.pack()
+    question_btn2.pack()
+    question_btn3.pack()
 
-while True:
     perguntaRecebida = socketCliente.recv(1024)
 
-    print(perguntaRecebida.decode())
-    resposta = input("\n\nEntrada ----> ").encode()
-    if resposta.decode() == '0':
-        socketCliente.close()
-        break
-    print("\n\n")
-    socketCliente.send(resposta)
+    question_text.destroy()
+    question_btn1.destroy()
+    question_btn2.destroy()
+    question_btn3.destroy()
 
-socketCliente.close()
+    question_text = tk.Label(main_screen, text=perguntaRecebida, bg=rgb_hack((207, 87, 61)))
+    question_btn1 = tk.Button(main_screen, text="Option1", bg=rgb_hack((207, 87, 61)), command=lambda: send_message(0))
+    question_btn2 = tk.Button(main_screen, text="Option2", bg=rgb_hack((207, 87, 61)), command=lambda: send_message(1))
+    question_btn3 = tk.Button(main_screen, text="Sair do Jogo", bg=rgb_hack((207, 87, 61)), command=lambda: close_socket(main_screen))
+
+    question_text.pack()
+    question_btn1.pack()
+    question_btn2.pack()
+    question_btn3.pack()
+
+main_screen.mainloop()

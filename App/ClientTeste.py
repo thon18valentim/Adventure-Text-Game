@@ -34,13 +34,13 @@ def advance_gameplay(title, button1, button2, button3):
     button3.destroy()
 
 main_screen = tk.Tk()
-main_screen.title("Adventure Game")
+main_screen.title("Andarilho")
 main_screen.resizable(False, False)
 
-main_screen.iconbitmap(r"img\sunIcon.ico")
+main_screen.iconbitmap(r"App\img\sunIcon.ico")
 
 c = Canvas(main_screen, bg = "gray16", height=400, width=600)
-filename = PhotoImage(file=r"img\Background.png")
+filename = PhotoImage(file=r"App\img\Background.png")
 background_label = Label(main_screen,image=filename)
 background_label.place(x=0,y=0, relwidth=1, relheight=1)
 #c.pack()
@@ -68,7 +68,7 @@ posy = screen_heigh/2 - window_heigh/2
 
 main_screen.geometry("%dx%d+%d+%d" % (window_width, window_heigh, posx, posy))
 
-menu_title = tk.Label(main_screen, text="Adventure Game", font=("Arial",15))
+menu_title = tk.Label(main_screen, text="Andarilho", font=("Arial",15))
 menu_title.pack(pady=25)
 
 menu_btn1 = tk.Button(main_screen, text="Play", command=lambda: show_frame(insertNameFrame), width=40, height=2, bg=rgb_hack((207, 87, 61)))

@@ -6,7 +6,7 @@ from tkinter.constants import LEFT
 from tkinter import *
 
 # Connection configurations
-PORT = 34516
+PORT = 21242
 HOST = socket.gethostbyname(socket.gethostname())
 socketCliente = None
 print(HOST)
@@ -37,10 +37,10 @@ main_screen = tk.Tk()
 main_screen.title("Adventure Game")
 main_screen.resizable(False, False)
 
-main_screen.iconbitmap(r"App\img\sunIcon.ico")
+main_screen.iconbitmap(r"img\sunIcon.ico")
 
 c = Canvas(main_screen, bg = "gray16", height=400, width=600)
-filename = PhotoImage(file=r"App\img\Background.png")
+filename = PhotoImage(file=r"img\Background.png")
 background_label = Label(main_screen,image=filename)
 background_label.place(x=0,y=0, relwidth=1, relheight=1)
 #c.pack()
@@ -170,9 +170,9 @@ def gameplay():
     question_btn2 = tk.Button(main_screen, text="Option2", bg=rgb_hack((207, 87, 61)), command=lambda: send_message(1))
     question_btn3 = tk.Button(main_screen, text="Sair do Jogo", bg=rgb_hack((207, 87, 61)), command=lambda: close_socket(main_screen))
 
-    question_text.pack()
-    question_btn1.pack()
-    question_btn2.pack()
-    question_btn3.pack()
+    question_text.place(y=10, x= 50)
+    question_btn1.place(x= 260, y=240,height='40', width="80")
+    question_btn2.place(x= 260, y=300,height='40', width="80")
+    question_btn3.place(x= 500, y=320,height='40', width="80")
 
 main_screen.mainloop()

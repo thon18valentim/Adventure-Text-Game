@@ -2,7 +2,7 @@
 
 from gameManager import QuestionsBuild
 from gameManager import GameManager
-import socket
+import socket, threading
 
 gameManager = GameManager()
 questionManager = QuestionsBuild()
@@ -16,6 +16,16 @@ socketServidor.listen(1)
 
 step = gameManager.getStep()
 
+time = 0
+
+def advance_time():
+    global time
+    time+=1
+
+def get_time():
+    global time
+    return "\nDay: " + str(time)
+
 while True :
     socketCliente, enderecoCliente = socketServidor.accept()
     print('Client connected => ', enderecoCliente)
@@ -23,7 +33,9 @@ while True :
         pergunta = questionManager.getQuestion(step)
         clientText = pergunta.text + "\n" + pergunta.getAnswerText()
 
-        socketCliente.send(clientText.encode())
+        threading.Thread(target=advance_time).start()
+
+        socketCliente.send((clientText + get_time()).encode())
 
         escolha = socketCliente.recv(100)
 
@@ -46,3 +58,4 @@ while True :
 
     print('Conexao finalizada com o cliente ', enderecoCliente)
     socketCliente.close()
+    break
